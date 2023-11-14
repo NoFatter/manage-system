@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.nofat.manage.common.Constants;
 import org.nofat.manage.common.R;
 import org.nofat.manage.controller.LoginController;
+import org.nofat.manage.entity.Role;
 import org.nofat.manage.entity.User;
 import org.nofat.manage.repository.UserRepository;
+import org.nofat.manage.service.RoleService;
 import org.nofat.manage.service.UserService;
 import org.nofat.manage.vo.login.LoginVo;
 import org.slf4j.Logger;
@@ -22,6 +24,8 @@ class ManageSystemApplicationTests {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     private static final Logger log = LoggerFactory.getLogger(ManageSystemApplicationTests.class);
 
     @Test
@@ -64,14 +68,27 @@ class ManageSystemApplicationTests {
             log.error(res.getMessage());
         }
    }
+   @Test
+   void addAdminUser() throws Exception {
+        User user = new User();
+        user.setUsername("admin");
+        user.setPassword("123456");
+        R<User> res = userService.insertUser(user);
+       if(res.getCode().equals(Constants.successCode)){
+           User test = userService.selectOneByUsername(res.getContent().getUsername()).getContent();
+           log.info(user.getUsername());
+       }else {
+           log.error(res.getMessage());
+       }
+   }
 
-//   @Test
-//    void loginTst(){
-//       LoginController loginController = new LoginController();
-//       LoginVo userVo = new LoginVo();
-//       userVo.setUsername("test");
-//       userVo.setPassword("1234");
-//       loginController.login(userVo);
-//   }
+    @Test
+    void addAdminRole() throws Exception {
+        User user = userService.selectOneByUsername("admin").getContent();
+        Role role = new Role();
+        role.setUserId(String.valueOf(user.get_id()));
+        role.setRoleName("admin");
+        R<Role> res = roleService.insertRole(role);
+    }
 
 }

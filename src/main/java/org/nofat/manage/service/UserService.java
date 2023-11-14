@@ -31,6 +31,10 @@ public interface UserService {
      * @author NoFat
      */
     R<User> selectOneByUsername(String username) throws Exception;
-
+    /**
+     * 登录
+     * @return String
+     * @author NoFat
+     */
     R<String> login(String username,String password);
 }

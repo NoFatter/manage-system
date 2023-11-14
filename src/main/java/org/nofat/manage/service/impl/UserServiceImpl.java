@@ -1,5 +1,6 @@
 package org.nofat.manage.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.nofat.manage.common.R;
 import org.nofat.manage.entity.User;
 import org.nofat.manage.repository.UserRepository;
@@ -51,8 +52,11 @@ public class UserServiceImpl implements UserService {
         if(!user.getPassword().equals(password)){
             return R.error("密码错误");
         }
+        StpUtil.login(user.get_id());
         return R.ok(user.getUsername());
     }
+
+
 
 
 }

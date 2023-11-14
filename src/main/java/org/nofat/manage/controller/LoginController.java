@@ -1,5 +1,6 @@
 package org.nofat.manage.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,11 +38,11 @@ public class LoginController {
         if(res.getCode().equals(Constants.errorCode)){
             return R.error(res.getMessage());
         }
-        StpUtil.login(username);
-        return R.ok();
+        return R.ok(res.getContent()+"登录成功");
     }
     @GetMapping("/logout")
     @ApiOperation(value = "登出")
+    @SaCheckLogin
     public R<String> logout(){
         StpUtil.logout();
         return R.ok();
