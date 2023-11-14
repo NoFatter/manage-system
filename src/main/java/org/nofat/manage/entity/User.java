@@ -15,4 +15,5 @@ import org.nofat.manage.common.BaseEntity;
 public class User extends BaseEntity {
     private String username;
     private String password;
+    private String salt;
 }

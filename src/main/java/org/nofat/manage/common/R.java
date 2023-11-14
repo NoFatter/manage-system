@@ -28,10 +28,16 @@ public class R<T> implements Serializable {
         this.message = message;
         this.content = null;
     }
-    public R<T> ok(T content){
-        return new R<>(200, "请求成功", content);
+    public static <T> R<T> ok(T content){
+        return new R<>(Constants.successCode, Constants.successMessage, content);
     }
-    public R<T> ok(){
-        return new R<>(200,message);
+    public static <T> R<T> ok(){
+        return new R<>(Constants.successCode, Constants.successMessage);
+    }
+    public static <T> R<T> error(){
+        return new R<>(Constants.errorCode,Constants.errorMessage);
+    }
+    public static <T> R<T> error(String message){
+        return new R<>(Constants.errorCode,message);
     }
 }

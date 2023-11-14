@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -16,12 +17,28 @@ import java.time.LocalDateTime;
  **/
 @Data
 public class BaseEntity {
+    /**
+     * 创建时间
+     */
     @CreatedDate
     private LocalDateTime createTime;
+    /**
+     * 创建者
+     */
     @CreatedBy
     private String createBy;
+    /**
+     * 更新时间
+     */
     @LastModifiedDate
     private LocalDateTime updateTime;
+    /**
+     * 更新者
+     */
     @LastModifiedBy
     private String updateBy;
+    /**
+     * 删除标识
+     */
+    private Integer isDelete;
 }
